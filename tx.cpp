@@ -19,7 +19,8 @@ int main() {
             pc.printf("Messaggio inviato: %c ", dato);
             led1 =1;
         } 
-    ThisThread::sleep_for(2.0);
     led1=0;
+    ThisThread::sleep_for(2000);
+   
     }
 }
