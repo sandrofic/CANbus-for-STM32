@@ -2,25 +2,25 @@
 #include "CAN.h"
 
 //TX
-CAN can1(D30, D29); 
-DigitalOut led1(LED1); 
-Serial pc(USBTX, USBRX);
+CAN can1(PD_0, PD_1); //(rd,tx)
+
+// can.write = 0 if no message arrived,1 if message arrived
 
 int main() {
 
-    char dato=9;
-    pc.baud(9600);
+    
+    char msg1_data[8] = {1,2,3,4,5,6,7,8};
+    
     can1.frequency(125000);
     
     while(1) {
             ////
-        printf("Invio messaggio:");
-        if (can1.write(CANMessage(0x42, &dato, 1))) {
-            pc.printf("Messaggio inviato: %c ", dato);
-            led1 =1;
+        printf("Invio messaggi:\n");
+        if (can1.write(CANMessage(0x42, msg1_data, 8))) {
+            printf("Messaggio inviato\n");
         } 
-    led1=0;
-    ThisThread::sleep_for(2000);
+    
+    ThisThread::sleep_for(1s);
    
     }
 }
