@@ -1,26 +1,30 @@
-#include "mbed.h"
-#include "CAN.h"
-
-//TX
-CAN can1(PD_0, PD_1); //(rd,tx)
-
-// can.write = 0 if no message arrived,1 if message arrived
-
-int main() {
-
+#include "mbed.h" 
+#include "CAN.h" 
+#include "InterfaceCAN.h"
+ 
+//TX 
+CAN can1(PD_0,PD_1);  
+//DigitalOut led1(LED1);  
+char dato = 5;
+int main() { 
+  
+  // pc.baud(115200);// velocità dei pacchetti  
+    can1.frequency(125000);//freq del canbus 
+     
+    while(1) { 
+             
+        printf("Invio messaggio:\n");
+        can1.write(CANMessage(25, &dato, 8));
+        printf("Messaggio inviato: %d \n ", dato);
+        HAL_Delay(1000);
+       // if (can1.write(CANMessage(25, &dato, 8))) { 
+           // printf("Messaggio inviato: %d \n ", dato); 
+           // led1 = 1; 
+        }  
+    //HAL_Delay(1000); 
+     
+    //led1=0; 
+    //HAL_Delay(1000); 
     
-    char msg1_data[8] = {1,2,3,4,5,6,7,8};
-    
-    can1.frequency(125000);
-    
-    while(1) {
-            ////
-        printf("Invio messaggi:\n");
-        if (can1.write(CANMessage(0x42, msg1_data, 8))) {
-            printf("Messaggio inviato\n");
-        } 
-    
-    ThisThread::sleep_for(1s);
-   
-    }
+   // } 
 }
