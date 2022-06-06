@@ -3,7 +3,8 @@
 #include "InterfaceCAN.h"
  
 //TX 
-CAN can1(PD_0,PD_1);  
+CAN can1(PD_0,PD_1);
+can1.frequency(500000);
 //DigitalOut led1(LED1);  
 char dato = 5;
 int main() { 
